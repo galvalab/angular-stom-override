@@ -121,6 +121,16 @@
 						<td mat-cell *matCellDef="let element"> {{element.ModifiedBy}} </td>
 					</ng-container>
 
+          <!-- QrCode Info -->
+					<ng-container matColumnDef="QrPicRef">
+						<th mat-header-cell *matHeaderCellDef> QrPicRef </th>
+						<td mat-cell *matCellDef="let element"> {{element.QrPicRef}} </td>
+					</ng-container>
+          <ng-container matColumnDef="QrValue">
+						<th mat-header-cell *matHeaderCellDef> QrValue </th>
+						<td mat-cell *matCellDef="let element"> {{element.QrValue}} </td>
+					</ng-container>
+
 					<tr mat-header-row *matHeaderRowDef="displayedSNColumns; sticky: true"></tr>
 					<tr mat-row *matRowDef="let row; columns: displayedSNColumns;" (click)="snRowClicked(row)"
 						[style.background]="highlightedSnRows.indexOf(row) != -1 ? '#D1C4E9' : ''"

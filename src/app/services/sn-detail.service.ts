@@ -53,6 +53,12 @@ export class SnDetailService {
   private modifiedBy = new BehaviorSubject('');
   sharedModifiedBy = this.modifiedBy;
 
+  private qrPicRef = new BehaviorSubject('');
+  sharedQrPicRef = this.qrPicRef;
+
+  private qrValue = new BehaviorSubject('');
+  sharedQrValue = this.qrValue;
+
   constructor() { }
 
   setSnID(snID: string) {
@@ -113,6 +119,13 @@ export class SnDetailService {
   }
   setModifiedBy(modifiedBy: string) {
     this.modifiedBy.next(modifiedBy);
+  }
+
+  setQrPicRef(qrPicRef: string) {
+    this.qrPicRef.next(qrPicRef);
+  }
+  setQrValue(qrValue: string) {
+    this.qrValue.next(qrValue);
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { SnDetailService } from "../services/sn-detail.service";
+import { GetDashboardDataService } from "../services/get-dashboard-data.service";
 
 @Component({
   selector: 'app-detail-page',
@@ -23,11 +24,15 @@ export class DetailPageComponent implements OnInit {
   barcodeAfter: string;
   modifiedBy: string;
 
+  qrPicUrl: string;
+  qrValue: string;
+
   @Input() isChecked: boolean;
   @Output() saveModification: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    private snDetail: SnDetailService
+    private snDetail: SnDetailService,
+    private dashData: GetDashboardDataService
   ) { }
 
   ngOnInit() {
@@ -73,6 +78,21 @@ export class DetailPageComponent implements OnInit {
     });
     this.snDetail.sharedModifiedBy.subscribe(param => {
       this.modifiedBy = param;
+    });
+    
+    this.snDetail.sharedQrPicRef.subscribe(param => {
+      this.dashData.getImage(param).subscribe(imgParam => {
+        if (imgParam != null) {
+          this.qrPicUrl = imgParam.Body.Row[0][2];
+        } else {
+          this.qrPicUrl =
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+        }
+      });
+    });
+    
+    this.snDetail.sharedQrValue.subscribe(param => {
+      this.qrValue = param;
     });
   }
 

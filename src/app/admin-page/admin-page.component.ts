@@ -30,6 +30,9 @@ export interface OverrideListElement {
   ReadBefore: string;
   ReadAfter: string;
   ModifiedBy: string;
+
+  QrPicRef: string;
+  QrValue: string;
 }
 
 export interface modInfo {
@@ -139,6 +142,9 @@ export class AdminPageComponent implements OnInit {
       this.snDetail.setBarcodeReadAfter(row.ReadAfter);
       this.snDetail.setModifiedBy(row.ModifiedBy);
 
+      this.snDetail.setQrPicRef(row.QrPicRef);
+      this.snDetail.setQrValue(row.QrValue);
+
       this.selectedDeviceAttributId = row.DeviceAttributeID;
       this.selectedSnId = row.SNID;
     } else {
@@ -162,6 +168,9 @@ export class AdminPageComponent implements OnInit {
       this.snDetail.setBarcodeReadBefore("");
       this.snDetail.setBarcodeReadAfter("");
       this.snDetail.setModifiedBy("");
+
+      this.snDetail.setQrPicRef("");
+      this.snDetail.setQrValue("");
 
       this.selectedDeviceAttributId = -1;
       this.selectedSnId = -1;
@@ -194,7 +203,10 @@ export class AdminPageComponent implements OnInit {
             ModifyDateTime: item[12],
             ReadBefore: item[13],
             ReadAfter: item[14],
-            ModifiedBy: item[15]
+            ModifiedBy: item[15],
+
+            QrPicRef: item[16],
+            QrValue: item[17]
           };
 
           tempData.push(sn);
@@ -230,7 +242,10 @@ export class AdminPageComponent implements OnInit {
             ModifyDateTime: "",
             ReadBefore: "",
             ReadAfter: "",
-            ModifiedBy: ""
+            ModifiedBy: "",
+
+            QrPicRef: item[16],
+            QrValue: item[17]
           };
 
           tempData.push(sn);
