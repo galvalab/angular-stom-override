@@ -1,0 +1,58 @@
+<mat-card class="example-card">
+	<mat-card-header>
+		<!-- <div mat-card-avatar class="example-header-image"></div> -->
+		<mat-card-title>Edit Section</mat-card-title>
+		<!-- <mat-card-subtitle>Image Thumbnail</mat-card-subtitle> -->
+	</mat-card-header>
+	<img mat-card-image src="{{snPicUrl}}" alt="Photo of SN barcode">
+	<mat-card-content>
+		<mat-form-field class="example-form-field">
+			<mat-label>Serial Number</mat-label>
+			<input matInput #NewSn type="text" [(ngModel)]="snValue">
+			<button mat-button *ngIf="snValue" matSuffix mat-icon-button aria-label="Clear" (click)="snValue=''">
+        <mat-icon>close</mat-icon>
+      </button>
+		</mat-form-field>
+
+		<mat-form-field class="example-form-field">
+			<mat-label>Barcode Read</mat-label>
+			<input matInput #NewBarcode type="text" [(ngModel)]="barcodeValue">
+			<button mat-button *ngIf="barcodeValue" matSuffix mat-icon-button aria-label="Clear" (click)="barcodeValue=''">
+        <mat-icon>close</mat-icon>
+      </button>
+		</mat-form-field>
+	</mat-card-content>
+	<mat-card-actions class="example-mat-card-actions">
+		<button mat-raised-button color="primary" (click)="saveModification(NewSn.value, NewBarcode.value)">Submit</button>
+	</mat-card-actions>
+</mat-card>
+<mat-card class="example-card">
+	<mat-card-header>
+		<!-- <div mat-card-avatar class="example-header-image"></div> -->
+		<mat-card-title>Client Identification</mat-card-title>
+		<!-- <mat-card-subtitle>Image Thumbnail</mat-card-subtitle> -->
+	</mat-card-header>
+	<!-- <img mat-card-image src="{{snPicUrl}}" alt="Photo of SN barcode"> -->
+	<mat-card-content>
+		<mat-form-field class="example-form-field">
+			<mat-label>Client IP</mat-label>
+			<input matInput disabled value="{{ ip }}">
+		</mat-form-field>
+			<mat-form-field class="example-form-field">
+				<mat-label>Client Latitude</mat-label>
+				<input matInput disabled value="{{ latitude }}">
+		</mat-form-field>
+    <mat-form-field class="example-form-field">
+				<mat-label>Client Longitude</mat-label>
+				<input matInput disabled value="{{ longitude }}">
+		</mat-form-field>
+    <mat-form-field class="example-form-field">
+				<mat-label>Location Accuracy</mat-label>
+				<input matInput disabled value="{{ accuracy }}">
+		</mat-form-field>
+    <mat-form-field class="example-form-field">
+				<mat-label>Now Timestamp</mat-label>
+				<input matInput disabled value="{{ timestamp }}">
+		</mat-form-field>
+	</mat-card-content>
+</mat-card>

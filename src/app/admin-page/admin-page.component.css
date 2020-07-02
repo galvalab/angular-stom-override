@@ -1,0 +1,40 @@
+.example-card {
+  max-width: 100%;
+  /* min-width: 100% - 10px; */
+
+  max-height: 720px;
+  
+  overflow: auto;
+}
+
+.example-form {
+  min-width: 150px;
+  padding: 5px;
+  width: 100% - 10px;
+}
+
+.mat-slide-toggle {
+  margin: 8px 0;
+  display: block;
+}
+
+.example-full-width {
+  width: 100%;
+  font-size: 14px;
+}
+
+/* Structure */
+table {
+  width: 100%;
+}
+table:hover{
+  cursor: pointer;
+}
+
+.table-header{
+  background: #7E57C2;
+  color: white;
+}
+.table-row{
+  background: #EDE7F6;
+}

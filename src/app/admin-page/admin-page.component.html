@@ -1,0 +1,138 @@
+<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="1px" fxLayoutGap.xs="0">
+	<div class="item item-1" fxFlex="50%">
+		<mat-card class="example-card">
+			<mat-card-header>
+				<!-- <div mat-card-avatar></div> -->
+				<mat-card-title>STO Override List of {{ checkedTitle }}</mat-card-title>
+				<mat-card-subtitle>
+					<mat-slide-toggle [(ngModel)]="isChecked" (click)="displayedList()">Click to display
+						{{ checkedToggle }}</mat-slide-toggle>
+				</mat-card-subtitle>
+				<mat-card-subtitle>
+					Row count = {{rowCount}}
+				</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-content>
+				<form class="example-form">
+					<mat-form-field class="example-full-width">
+						<mat-label>Filter</mat-label>
+						<input matInput (keyup)="applySnFilter($event)" placeholder="Ex. ium">
+          </mat-form-field>
+				</form>
+
+				<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+					<!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+					<!-- SNID Column -->
+					<ng-container matColumnDef="SNID">
+						<th mat-header-cell *matHeaderCellDef [style.background]="tblHeaderBackColor"
+							[style.color]="tblHeaderFontColor"> SNID </th>
+						<td mat-cell *matCellDef="let element"> {{element.SNID}} </td>
+					</ng-container>
+
+					<!-- SerialNumber Column -->
+					<ng-container matColumnDef="SerialNumber">
+						<th mat-header-cell *matHeaderCellDef [style.background]="tblHeaderBackColor"
+							[style.color]="tblHeaderFontColor"> SN </th>
+						<td mat-cell *matCellDef="let element"> {{element.SerialNumber}} </td>
+					</ng-container>
+
+					<!-- DeviceAttributeID Column -->
+					<ng-container matColumnDef="DeviceAttributeID">
+						<th mat-header-cell *matHeaderCellDef [style.background]="tblHeaderBackColor"
+							[style.color]="tblHeaderFontColor"> AttrID </th>
+						<td mat-cell *matCellDef="let element"> {{element.DeviceAttributeID}} </td>
+					</ng-container>
+
+					<!-- DeviceModel Column -->
+					<ng-container matColumnDef="DeviceModel">
+						<th mat-header-cell *matHeaderCellDef [style.background]="tblHeaderBackColor"
+							[style.color]="tblHeaderFontColor"> Model </th>
+						<td mat-cell *matCellDef="let element"> {{element.DeviceModel}} </td>
+					</ng-container>
+
+					<!-- DeviceAddress Column -->
+					<ng-container matColumnDef="DeviceAddress">
+						<th mat-header-cell *matHeaderCellDef [style.background]="tblHeaderBackColor"
+							[style.color]="tblHeaderFontColor"> DeviceAddress </th>
+						<td mat-cell *matCellDef="let element"> {{element.DeviceAddress}} </td>
+					</ng-container>
+
+					<!-- SnRead Column -->
+					<ng-container matColumnDef="SnRead">
+						<th mat-header-cell *matHeaderCellDef [style.background]="tblHeaderBackColor"
+							[style.color]="tblHeaderFontColor"> SnRead </th>
+						<td mat-cell *matCellDef="let element"> {{element.SnRead}} </td>
+					</ng-container>
+
+					<!-- SnPicRef Column -->
+					<ng-container matColumnDef="SnPicRef">
+						<th mat-header-cell *matHeaderCellDef [style.background]="tblHeaderBackColor"
+							[style.color]="tblHeaderFontColor"> SnPicRef </th>
+						<td mat-cell *matCellDef="let element"> {{element.SnPicRef}} </td>
+					</ng-container>
+
+					<!-- AgentID Column -->
+					<ng-container matColumnDef="AgentID">
+						<th mat-header-cell *matHeaderCellDef [style.background]="tblHeaderBackColor"
+							[style.color]="tblHeaderFontColor"> AgentID </th>
+						<td mat-cell *matCellDef="let element"> {{element.AgentID}} </td>
+					</ng-container>
+
+					<!-- AgentName Column -->
+					<ng-container matColumnDef="AgentName">
+						<th mat-header-cell *matHeaderCellDef [style.background]="tblHeaderBackColor"
+							[style.color]="tblHeaderFontColor"> AgentName </th>
+						<td mat-cell *matCellDef="let element"> {{element.AgentName}} </td>
+					</ng-container>
+
+					<!-- LoginUser Column -->
+					<ng-container matColumnDef="LoginUser">
+						<th mat-header-cell *matHeaderCellDef [style.background]="tblHeaderBackColor"
+							[style.color]="tblHeaderFontColor"> LoginUser </th>
+						<td mat-cell *matCellDef="let element"> {{element.LoginUser}} </td>
+					</ng-container>
+
+					<!-- Modified Detail Column -->
+					<ng-container matColumnDef="ClientIP">
+						<th mat-header-cell *matHeaderCellDef> ClientIP </th>
+						<td mat-cell *matCellDef="let element"> {{element.ClientIP}} </td>
+					</ng-container>
+					<ng-container matColumnDef="GeoTag">
+						<th mat-header-cell *matHeaderCellDef> GeoTag </th>
+						<td mat-cell *matCellDef="let element"> {{element.GeoTag}} </td>
+					</ng-container>
+					<ng-container matColumnDef="ModifyDateTime">
+						<th mat-header-cell *matHeaderCellDef> ModifyDateTime </th>
+						<td mat-cell *matCellDef="let element"> {{element.ModifyDateTime}} </td>
+					</ng-container>
+					<ng-container matColumnDef="ReadBefore">
+						<th mat-header-cell *matHeaderCellDef> ReadBefore </th>
+						<td mat-cell *matCellDef="let element"> {{element.ReadBefore}} </td>
+					</ng-container>
+					<ng-container matColumnDef="ReadAfter">
+						<th mat-header-cell *matHeaderCellDef> ReadAfter </th>
+						<td mat-cell *matCellDef="let element"> {{element.ReadAfter}} </td>
+					</ng-container>
+					<ng-container matColumnDef="ModifiedBy">
+						<th mat-header-cell *matHeaderCellDef> ModifiedBy </th>
+						<td mat-cell *matCellDef="let element"> {{element.ModifiedBy}} </td>
+					</ng-container>
+
+					<tr mat-header-row *matHeaderRowDef="displayedSNColumns; sticky: true"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedSNColumns;" (click)="snRowClicked(row)"
+						[style.background]="highlightedSnRows.indexOf(row) != -1 ? '#D1C4E9' : ''"
+						[style.background]="isChecked === true ? '#ede7f6' : ''"></tr>
+				</table>
+			</mat-card-content>
+		</mat-card>
+	</div>
+	<div class="item item-2" fxFlex="25%">
+		<app-detail-page [isChecked]="isChecked"></app-detail-page>
+	</div>
+	<div class="item item-2" fxFlex="25%">
+		<app-edit-page (retrievedClientId)="saveModification($event)"></app-edit-page>
+	</div>
+</div>

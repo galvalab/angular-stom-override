@@ -1,0 +1,81 @@
+<mat-card class="example-card">
+	<mat-card-header>
+		<!-- <div mat-card-avatar></div> -->
+		<mat-card-title>Selected SN Detail</mat-card-title>
+		<mat-card-subtitle></mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<form class="example-form">
+			<mat-form-field class="example-full-width">
+				<mat-label>Device SN</mat-label>
+				<input matInput disabled value="{{sn}}">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+				<mat-label>Device Model</mat-label>
+				<input matInput disabled value="{{model}}">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+				<mat-label>Device Address</mat-label>
+				<input matInput disabled value="{{address}}">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+				<mat-label>Barcode Read</mat-label>
+				<input matInput disabled value="{{barcode}}">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+				<mat-label>Agent Name</mat-label>
+				<input matInput disabled value="{{agentname}}">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+				<mat-label>Agent Login User</mat-label>
+				<input matInput disabled value="{{username}}">
+      </mat-form-field>
+		</form>
+	</mat-card-content>
+</mat-card>
+<mat-divider></mat-divider>
+<mat-card class="example-card" [style.visibility]="isChecked ? '' : 'hidden'">
+	<mat-card-header>
+		<!-- <div mat-card-avatar></div> -->
+		<mat-card-title>Selected Modified SN Detail</mat-card-title>
+		<mat-card-subtitle></mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<form class="example-form">
+			<mat-form-field class="example-full-width">
+				<mat-label>Client IP</mat-label>
+				<input matInput disabled value="{{clientIp}}">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+				<mat-label>Modified GeoLocation</mat-label>
+				<input matInput disabled value="{{geotag}}">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+				<mat-label>Modified DateTime</mat-label>
+				<input matInput disabled value="{{modifiedDT}}">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+				<mat-label>Barcode Before</mat-label>
+				<input matInput disabled value="{{barcodeBefore}}">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+				<mat-label>Barcode After</mat-label>
+				<input matInput disabled value="{{barcodeAfter}}">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+				<mat-label>Modified By</mat-label>
+				<input matInput disabled value="{{modifiedBy}}">
+      </mat-form-field>
+		</form>
+	</mat-card-content>
+</mat-card>
