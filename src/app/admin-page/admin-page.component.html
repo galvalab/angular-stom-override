@@ -3,12 +3,17 @@
 		<mat-card class="example-card">
 			<mat-card-header>
 				<!-- <div mat-card-avatar></div> -->
-				<mat-card-title>STO Override List of {{ checkedTitle }}</mat-card-title>
+				<mat-card-title>STO Override Dashboard</mat-card-title>
 				<mat-card-subtitle>
-					<mat-slide-toggle [(ngModel)]="isChecked" (click)="displayedList()">Click to display
-						{{ checkedToggle }}</mat-slide-toggle>
-				</mat-card-subtitle>
-				<mat-card-subtitle>
+					<mat-form-field class="example-full-width">
+						<mat-label>Display Categories</mat-label>
+						<mat-select>
+							<mat-option *ngFor="let displayCategory of displayCategories"
+								[value]="displayCategory.value" (click)="refreshSelectedDisplay(displayCategory.value)">
+								{{displayCategory.viewValue}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
 					Row count = {{rowCount}}
 				</mat-card-subtitle>
 			</mat-card-header>
@@ -121,12 +126,12 @@
 						<td mat-cell *matCellDef="let element"> {{element.ModifiedBy}} </td>
 					</ng-container>
 
-          <!-- QrCode Info -->
+					<!-- QrCode Info -->
 					<ng-container matColumnDef="QrPicRef">
 						<th mat-header-cell *matHeaderCellDef> QrPicRef </th>
 						<td mat-cell *matCellDef="let element"> {{element.QrPicRef}} </td>
 					</ng-container>
-          <ng-container matColumnDef="QrValue">
+					<ng-container matColumnDef="QrValue">
 						<th mat-header-cell *matHeaderCellDef> QrValue </th>
 						<td mat-cell *matCellDef="let element"> {{element.QrValue}} </td>
 					</ng-container>
@@ -134,7 +139,7 @@
 					<tr mat-header-row *matHeaderRowDef="displayedSNColumns; sticky: true"></tr>
 					<tr mat-row *matRowDef="let row; columns: displayedSNColumns;" (click)="snRowClicked(row)"
 						[style.background]="highlightedSnRows.indexOf(row) != -1 ? '#D1C4E9' : ''"
-						[style.background]="isChecked === true ? '#ede7f6' : ''"></tr>
+						[style.background]="isModifiedList === true ? '#ede7f6' : ''"></tr>
 				</table>
 			</mat-card-content>
 		</mat-card>

@@ -44,6 +44,16 @@ export class GetDashboardDataService {
     return this.http.get<generalType>(url);
   }
 
+  getAllTaggedDevice() {
+    var formData: any = new FormData();
+    formData.append("snid", "-1");
+
+    const url =
+      "https://dems.galva.co.id/stom/override/GetStomOverrideList.ashx";
+
+    return this.http.post<generalType>(url, formData);
+  }
+
   getImage(storef: string) {
     return this.http.get<generalType>(
       "https://dems.galva.co.id/stom/mobile/GetStomImage.ashx?storef=" + storef

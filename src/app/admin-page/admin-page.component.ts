@@ -58,6 +58,12 @@ export interface saveType {
   sn: string;
 }
 
+interface DropDownList {
+  value: number;
+  viewValue: string;
+  checked: boolean;
+}
+
 @Component({
   selector: "app-admin-page",
   templateUrl: "./admin-page.component.html",
@@ -75,15 +81,19 @@ export class AdminPageComponent implements OnInit {
   dataSource = new MatTableDataSource<OverrideListElement>();
   rowCount = -1;
 
-  isChecked = false;
-  checkedTitle = '"False Barcode Read"';
-  checkedToggle = "[Modified List]";
-
   tblHeaderBackColor = "";
   tblHeaderFontColor = "";
 
   selectedDeviceAttributId = -1;
   selectedSnId = -1;
+
+  isModifiedList = false;
+
+  displayCategories: DropDownList[] = [
+    { value: 1, viewValue: "Need To Override Only", checked: true },
+    { value: 2, viewValue: "Modified List", checked: false },
+    { value: 3, viewValue: "All Tagged Device", checked: false }
+  ];
 
   constructor(
     private actRouter: ActivatedRoute,
@@ -99,7 +109,7 @@ export class AdminPageComponent implements OnInit {
 
     this.urlpath.setHeaderText("STOM Override Dashboard");
 
-    this.callOverrideWS(false);
+    this.callOverrideWS(1);
 
     this.actRouter.paramMap.subscribe(params => {
       const adminCommand: string = params.get("adminCommand");
@@ -177,11 +187,11 @@ export class AdminPageComponent implements OnInit {
     }
   }
 
-  callOverrideWS(isModified: boolean) {
+  callOverrideWS(catValue: number) {
     // Start the animation
     this.urlpath.setLoadingAnimation(true);
 
-    if (isModified) {
+    if (catValue === 2) {
       this.dashData.getModifiedList().subscribe(resp => {
         let tempData: Array<OverrideListElement> = [];
 
@@ -220,8 +230,47 @@ export class AdminPageComponent implements OnInit {
         // Stop the animation
         this.urlpath.setLoadingAnimation(false);
       });
-    } else {
+    } else if (catValue === 1) {
       this.dashData.getOverrideList().subscribe(resp => {
+        let tempData: Array<OverrideListElement> = [];
+
+        resp.Body.Row.forEach(item => {
+          const sn: OverrideListElement = {
+            SNID: item[0],
+            SerialNumber: item[1],
+            DeviceAttributeID: item[2],
+            DeviceModel: item[3],
+            DeviceAddress: item[4],
+            SnRead: item[5],
+            SnPicRef: item[6],
+            AgentID: item[7],
+            AgentName: item[8],
+            LoginUser: item[9],
+
+            ClientIP: "",
+            GeoTag: "",
+            ModifyDateTime: "",
+            ReadBefore: "",
+            ReadAfter: "",
+            ModifiedBy: "",
+
+            QrPicRef: item[16],
+            QrValue: item[17]
+          };
+
+          tempData.push(sn);
+        });
+
+        this.dataSource.data = [];
+        this.dataSource.data = tempData;
+
+        this.rowCount = tempData.length;
+
+        // Stop the animation
+        this.urlpath.setLoadingAnimation(false);
+      });
+    } else if (catValue === 3) {
+      this.dashData.getAllTaggedDevice().subscribe(resp => {
         let tempData: Array<OverrideListElement> = [];
 
         resp.Body.Row.forEach(item => {
@@ -267,34 +316,10 @@ export class AdminPageComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  displayedList() {
-    // Clear display
-    this.snRowClicked(null);
-
-    if (this.isChecked) {
-      this.checkedTitle = '"False Barcode Read"';
-      this.checkedToggle = "[Modified List]";
-
-      this.tblHeaderBackColor = "";
-      this.tblHeaderFontColor = "";
-
-      this.callOverrideWS(false);
-    } else {
-      this.checkedTitle = '"Modified Barcode Read"';
-      this.checkedToggle = "[False Read]";
-
-      this.tblHeaderBackColor = "#7E57C2";
-      this.tblHeaderFontColor = "white";
-
-      this.callOverrideWS(true);
-    }
-  }
-
   public saveModification(newModif: modInfo) {
     if (this.selectedDeviceAttributId === -1 || this.selectedSnId === -1) {
       // display warning
       console.log("Row is not selected yet");
-      
     } else {
       const tempSaveParam: saveType = {
         devattrid: this.selectedDeviceAttributId,
@@ -315,6 +340,34 @@ export class AdminPageComponent implements OnInit {
         this.snRowClicked(null);
         this.callOverrideWS(this.isChecked);
       });
+    }
+  }
+
+  private refreshSelectedDisplay(item: number) {
+    // Clear display
+    this.snRowClicked(null);
+
+    if (item === 1) {
+      this.tblHeaderBackColor = "";
+      this.tblHeaderFontColor = "";
+
+      this.isModifiedList = false;
+
+      this.callOverrideWS(1);
+    } else if (item === 2) {
+      this.tblHeaderBackColor = "#7E57C2";
+      this.tblHeaderFontColor = "white";
+
+      this.isModifiedList = true;
+
+      this.callOverrideWS(2);
+    } else if (item === 3) {
+      this.tblHeaderBackColor = "";
+      this.tblHeaderFontColor = "";
+
+      this.isModifiedList = false;
+
+      this.callOverrideWS(3);
     }
   }
 }
