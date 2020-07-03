@@ -88,6 +88,7 @@ export class AdminPageComponent implements OnInit {
   selectedSnId = -1;
 
   isModifiedList = false;
+  displayCategoryId = 1;
 
   displayCategories: DropDownList[] = [
     { value: 1, viewValue: "Need To Override Only", checked: true },
@@ -338,7 +339,7 @@ export class AdminPageComponent implements OnInit {
 
       this.saveMod.saveModificationData(tempSaveParam).subscribe(report => {
         this.snRowClicked(null);
-        this.callOverrideWS(this.isChecked);
+        this.callOverrideWS(this.displayCategoryId);
       });
     }
   }
@@ -346,6 +347,8 @@ export class AdminPageComponent implements OnInit {
   private refreshSelectedDisplay(item: number) {
     // Clear display
     this.snRowClicked(null);
+
+    this.displayCategoryId = item;
 
     if (item === 1) {
       this.tblHeaderBackColor = "";
