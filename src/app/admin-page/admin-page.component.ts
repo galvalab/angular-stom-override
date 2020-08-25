@@ -33,6 +33,8 @@ export interface OverrideListElement {
 
   QrPicRef: string;
   QrValue: string;
+
+  BoxSnValue: string;
 }
 
 export interface modInfo {
@@ -156,6 +158,8 @@ export class AdminPageComponent implements OnInit {
       this.snDetail.setQrPicRef(row.QrPicRef);
       this.snDetail.setQrValue(row.QrValue);
 
+      this.snDetail.setBoxSnValue(row.BoxSnValue);
+
       this.selectedDeviceAttributId = row.DeviceAttributeID;
       this.selectedSnId = row.SNID;
     } else {
@@ -182,6 +186,8 @@ export class AdminPageComponent implements OnInit {
 
       this.snDetail.setQrPicRef("");
       this.snDetail.setQrValue("");
+
+      this.snDetail.setBoxSnValue("");
 
       this.selectedDeviceAttributId = -1;
       this.selectedSnId = -1;
@@ -217,7 +223,9 @@ export class AdminPageComponent implements OnInit {
             ModifiedBy: item[15],
 
             QrPicRef: item[16],
-            QrValue: item[17]
+            QrValue: item[17],
+
+            BoxSnValue: item[18]
           };
 
           tempData.push(sn);
@@ -256,7 +264,9 @@ export class AdminPageComponent implements OnInit {
             ModifiedBy: "",
 
             QrPicRef: item[16],
-            QrValue: item[17]
+            QrValue: item[17],
+
+            BoxSnValue: item[18]
           };
 
           tempData.push(sn);
@@ -295,7 +305,9 @@ export class AdminPageComponent implements OnInit {
             ModifiedBy: "",
 
             QrPicRef: item[16],
-            QrValue: item[17]
+            QrValue: item[17],
+
+            BoxSnValue: item[18]
           };
 
           tempData.push(sn);

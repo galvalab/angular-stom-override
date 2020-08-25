@@ -136,6 +136,12 @@
 						<td mat-cell *matCellDef="let element"> {{element.QrValue}} </td>
 					</ng-container>
 
+          <!-- BoxSN -->
+					<ng-container matColumnDef="BoxSnValue">
+						<th mat-header-cell *matHeaderCellDef> BoxSnValue </th>
+						<td mat-cell *matCellDef="let element"> {{element.BoxSnValue}} </td>
+					</ng-container>
+
 					<tr mat-header-row *matHeaderRowDef="displayedSNColumns; sticky: true"></tr>
 					<tr mat-row *matRowDef="let row; columns: displayedSNColumns;" (click)="snRowClicked(row)"
 						[style.background]="highlightedSnRows.indexOf(row) != -1 ? '#D1C4E9' : ''"

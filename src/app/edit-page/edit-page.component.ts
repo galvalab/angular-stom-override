@@ -13,6 +13,7 @@ export interface modInfo {
   tstamp: number;
   newSn: string;
   newBarcode: string;
+  boxSn: string;
 }
 
 @Component({
@@ -28,6 +29,8 @@ export class EditPageComponent implements OnInit {
   snValue = "Clear me";
 
   barcodeValue = "Clear me";
+
+  boxSnValue = "";
 
   ip: string;
   latitude: number;
@@ -49,6 +52,10 @@ export class EditPageComponent implements OnInit {
 
     this.snDetail.sharedSnRead.subscribe(param => {
       this.barcodeValue = param;
+    });
+
+    this.snDetail.sharedBoxSnValue.subscribe(param => {
+      this.boxSnValue = param;
     });
 
     this.snDetail.sharedSnPicRef.subscribe(param => {
@@ -79,7 +86,7 @@ export class EditPageComponent implements OnInit {
     });
   }
 
-  saveModification(NewSn: string, NewBarcode: string) {
+  saveModification(NewSn: string, NewBarcode: string, BoxSn: string) {
     // Start the animation
     this.urlpath.setLoadingAnimation(true);
 
@@ -92,7 +99,8 @@ export class EditPageComponent implements OnInit {
           acc: pos.coords.accuracy,
           tstamp: pos.timestamp,
           newSn: NewSn,
-          newBarcode: NewBarcode
+          newBarcode: NewBarcode,
+          boxSn: BoxSn
         };
 
         this.retrievedClientId.emit(newModif);

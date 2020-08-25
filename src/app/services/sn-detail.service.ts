@@ -59,6 +59,9 @@ export class SnDetailService {
   private qrValue = new BehaviorSubject('');
   sharedQrValue = this.qrValue;
 
+  private boxSnValue = new BehaviorSubject('');
+  sharedBoxSnValue = this.boxSnValue;
+
   constructor() { }
 
   setSnID(snID: string) {
@@ -126,6 +129,10 @@ export class SnDetailService {
   }
   setQrValue(qrValue: string) {
     this.qrValue.next(qrValue);
+  }
+
+  setBoxSnValue(boxSnValue: string) {
+    this.boxSnValue.next(boxSnValue);
   }
 
 }
