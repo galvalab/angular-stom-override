@@ -51,4 +51,23 @@ export class SaveModificaionService {
 
     return this.http.post<generalType>(url, formData);
   }
+
+  saveBoxSN(saveParam: saveType) {
+    var formData: any = new FormData();
+    formData.append("devattrid", saveParam.devattrid);
+    formData.append("barcode", "");
+    formData.append("loginuser", saveParam.loginuser);
+    formData.append("clientip", saveParam.clientip);
+    formData.append("acc", saveParam.acc);
+    formData.append("lat", saveParam.lat);
+    formData.append("long", saveParam.long);
+    formData.append("timestamp", saveParam.timestamp);
+    formData.append("snid", saveParam.snid);
+    formData.append("snbox", saveParam.sn);
+
+    const url =
+      "https://dems.galva.co.id/stom/override/InsertStomOverrideSNBox.ashx";
+
+    return this.http.post<generalType>(url, formData);
+  }
 }

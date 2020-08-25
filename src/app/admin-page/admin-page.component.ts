@@ -45,6 +45,7 @@ export interface modInfo {
   tstamp: number;
   newSn: string;
   newBarcode: string;
+  boxSn: string;
 }
 
 export interface saveType {
@@ -334,6 +335,7 @@ export class AdminPageComponent implements OnInit {
       // display warning
       console.log("Row is not selected yet");
     } else {
+      // Saving Corrected SN and Barcode Read SN
       const tempSaveParam: saveType = {
         devattrid: this.selectedDeviceAttributId,
         barcode: newModif.newBarcode,
@@ -347,11 +349,28 @@ export class AdminPageComponent implements OnInit {
         sn: newModif.newSn
       };
 
-      console.log(tempSaveParam);
+      // console.log(tempSaveParam);
 
       this.saveMod.saveModificationData(tempSaveParam).subscribe(report => {
-        this.snRowClicked(null);
-        this.callOverrideWS(this.displayCategoryId);
+
+        // Saving Box SN
+        const tempBoxSaveParam: saveType = {
+          devattrid: this.selectedDeviceAttributId,
+          barcode: "",
+          loginuser: localStorage.getItem("loginUser"),
+          clientip: newModif.ip,
+          acc: newModif.acc,
+          lat: newModif.lat,
+          long: newModif.long,
+          timestamp: newModif.tstamp,
+          snid: this.selectedSnId,
+          sn: newModif.boxSn
+        };
+
+        this.saveMod.saveBoxSN(tempBoxSaveParam).subscribe(boxReport => {
+          this.snRowClicked(null);
+          this.callOverrideWS(this.displayCategoryId);
+        });
       });
     }
   }
