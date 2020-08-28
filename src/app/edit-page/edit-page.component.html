@@ -4,6 +4,9 @@
 		<mat-card-title>Edit Section</mat-card-title>
 		<!-- <mat-card-subtitle>Image Thumbnail</mat-card-subtitle> -->
 	</mat-card-header>
+  <div *ngIf="loadBarcodeImage">
+		<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+	</div>
 	<img mat-card-image src="{{snPicUrl}}" alt="Photo of SN barcode">
 	<mat-card-content>
 		<mat-form-field class="example-form-field">

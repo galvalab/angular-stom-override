@@ -26,6 +26,8 @@ export class EditPageComponent implements OnInit {
 
   snPicUrl: string = "";
 
+  loadBarcodeImage = false;
+
   snValue = "Clear me";
 
   barcodeValue = "Clear me";
@@ -59,6 +61,13 @@ export class EditPageComponent implements OnInit {
     });
 
     this.snDetail.sharedSnPicRef.subscribe(param => {
+      // Display loading animation
+      this.loadBarcodeImage = true;
+
+      // Clear image
+      this.snPicUrl =
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+
       this.dashData.getImage(param).subscribe(imgParam => {
         if (imgParam != null) {
           this.snPicUrl = imgParam.Body.Row[0][2];
@@ -68,6 +77,8 @@ export class EditPageComponent implements OnInit {
           this.snPicUrl =
             "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
         }
+
+        this.loadBarcodeImage = false;
       });
     });
   }

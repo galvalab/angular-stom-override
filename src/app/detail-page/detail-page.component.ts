@@ -27,6 +27,8 @@ export class DetailPageComponent implements OnInit {
   qrPicUrl: string;
   qrValue: string;
 
+  loadQrCodeImage = false;
+
   @Input() isChecked: boolean;
   @Output() saveModification: EventEmitter<any> = new EventEmitter<any>();
 
@@ -81,6 +83,13 @@ export class DetailPageComponent implements OnInit {
     });
     
     this.snDetail.sharedQrPicRef.subscribe(param => {
+      // Display loading animation
+      this.loadQrCodeImage = true;
+
+      // Clear image
+      this.qrPicUrl =
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+
       this.dashData.getImage(param).subscribe(imgParam => {
         if (imgParam != null) {
           this.qrPicUrl = imgParam.Body.Row[0][2];
@@ -88,6 +97,8 @@ export class DetailPageComponent implements OnInit {
           this.qrPicUrl =
             "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
         }
+
+        this.loadQrCodeImage = false;
       });
     });
     
